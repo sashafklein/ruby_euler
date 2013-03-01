@@ -1,5 +1,9 @@
+
 class Fixnum
 
+	# This is an EXTREMELY inefficient prime-finding method.
+	# I later adopted a less homebrewed and more efficiency-conscious
+	# version (see 10). This one's staying for posterity.
 	def isPrime?
 		div = self - 1
 		while div >= 2
@@ -18,9 +22,9 @@ class Fixnum
 			prime = div if self % div == 0 && div.isPrime?
 		end
 		return prime if prime != 0
-		"No Prime factors!"
+		p "No Prime factors!"
 	end
 
 end
 
-puts 600851475143.greatestPrimeFactor
+p 600851475143.greatestPrimeFactor

@@ -1,14 +1,16 @@
+# This solution is really slow. To be fixed.
+
 class Fixnum
 
 	def pal?
 		array = self.to_s.split("")
 		while array.length > 1
 			if array[0] == array[-1]
-				array.delete_at(0)
+				array.shift
 				array.pop
 			elsif array.length == 1
 				return true
-			else array.length == 0
+			else array.empty?
 				return false
 			end
 		end	
