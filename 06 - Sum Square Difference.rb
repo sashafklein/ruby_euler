@@ -16,6 +16,4 @@ class Fixnum
 	end
 end
 
-# puts 10.square_of_sums - 10.sum_of_squares
-
 puts 100.square_of_sums - 100.sum_of_squares

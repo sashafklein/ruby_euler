@@ -1,29 +1,21 @@
-# This solution is really slow. To be fixed.
+# A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 99.
+# Find the largest palindrome made from the product of two 3-digit numbers.
+
 
 class Fixnum
 
 	def pal?
-		array = self.to_s.split("")
-		while array.length > 1
-			if array[0] == array[-1]
-				array.shift
-				array.pop
-			elsif array.length == 1
-				return true
-			else array.empty?
-				return false
-			end
-		end	
-		true
+		self.to_s == self.to_s.reverse
 	end
 
 end
 
-list = []
-(100...1000).each do |i|
-	(100...1000).each do |j|
-		list << (i * j) if (i * j).pal?
+# Limited scope for speed, assuming multiples were above 900.
+largest = 0
+900.upto(999).each do |i|
+	900.upto(999).each do |j|
+		largest = (i * j) if (i * j).pal? && (i * j) > largest
 	end
 end
 
-puts list.sort[-1]
+puts largest

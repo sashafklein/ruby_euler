@@ -6,3 +6,22 @@ puts multiples.inject(0) { |sum, n| sum + n }
 
 # Or, more awesomely, but less clearly:
 # p (0...1000).select { |n| n % 5 == 0 || n % 3 == 0 }.inject(0) { |sum, n| sum + n }
+
+bignum = 0
+(950..999).each do |a|
+	(950..999).each do |b|
+		if palindrome(b * a)
+			if bignum < a * b
+				bignum = a*b
+			end
+		end
+	end
+end
+bignum
+
+def palindrome(num)
+	return true if num.to_s == num.to_s.reverse
+	return false
+end
+
+puts bignum

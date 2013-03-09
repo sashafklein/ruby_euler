@@ -5,10 +5,7 @@ num = "10234972019234"
 
 class Array
 	def test(biggest)
-		product = 1
-		self.each do |n|
-			product *= n.to_i
-		end
+		product = self.inject(1) { |prod, mult| prod * mult.to_i }
 		biggest = product if product > biggest
 		biggest
 	end
@@ -20,7 +17,5 @@ while @array.length > 5
 	@biggest = @array.last(5).test(@biggest)
 	@array.pop
 end
-
-puts @array.last(5)
 
 puts @biggest

@@ -1,4 +1,5 @@
-square = "08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
+square = 
+"08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
 81 49 31 73 55 79 14 29 93 71 40 67 53 88 30 03 49 13 36 65
 52 70 95 23 04 60 11 42 69 24 68 56 01 32 56 71 37 02 36 91
@@ -19,54 +20,69 @@ square = "08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
 01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48"
 
-flat_array = square.split(" ").map{ |x| x.to_i }
-h_array = []
-v_array = []
-d_array = []
+@flat = square.split(" ").map{ |x| x.to_i }
 
-(0..20).to_a.each do |n|
-	temp = []
-	h_array << flat_array[((20*n))..(20*(n+1)-1)]
-end
+@largest = 0
+@array = []
 
-(0..20).to_a.each do |n|
-	h_array << flat_array[((20*n))..(20*(n+1)-1)]
-end
-
-(0..20).to_a.each do |n|
-	h_array << flat_array[((20*n))..(20*(n+1)-1)]
-end
-
-def max_h(array)
-	best = 0
-	array.each do |set|
-		set.each_with_id do |four, id|
-			mult = set(id..id+3).inject{ |product,x| product * x }
-			best = mult if mult > best
+def horiz(num)
+	# Make sure num isn't within three of the right edge
+	if num % 20 + 2 < 19
+		# Mult that number by the three to its right
+		test = @flat[num] * @flat[num+1] * @flat[num+2] * @flat[num+3] 
+		if @largest < test
+			@largest = test 
+			@array = [@flat[num] , @flat[num+1] , @flat[num+2] , @flat[num+3]]
 		end
 	end
-	return best
 end
 
-def max_v(array)
-	best = 0
-	to_vert 
-	array.each do |set|
-		set.each_with_id do |four, id|
-			mult = set(id..id+3).inject{ |product,x| product * x }
-			best = mult if mult > best
+def vert(num)
+	# Make sure num isn't within three of the bottom edge
+	if num < 340
+		# Mult that number by the three to its right
+		test = @flat[num] * @flat[num+20] * @flat[num+40] * @flat[num+60]
+		if @largest < test
+			@largest = test 
+			@array = [@flat[num] , @flat[num+20] , @flat[num+40] , @flat[num+60]]
 		end
 	end
-	return best
 end
 
-def max_h(array)
-	best = 0
-	array.each do |set|
-		set.each_with_id do |four, id|
-			mult = set(id..id+3).inject{ |product,x| product * x }
-			best = mult if mult > best
+def diaga(num)
+	# Make sure num isn't within three of the bottom/right
+	if num < 340
+		if num % 20 + 2 < 19
+			# Mult that number by its three down-right diagonals
+			test = @flat[num] * @flat[num+21] * @flat[num+42] * @flat[num+63]
+			if @largest < test
+				@largest = test 
+				@array = [@flat[num] , @flat[num+21] , @flat[num+42] , @flat[num+63]]
+			end
 		end
 	end
-	return best
 end
+
+def diagb(num)
+	# Make sure num isn't within three of the bottom/left
+	if num < 340
+		if num % 20 > 3
+			# Mult that number by its three down-right diagonals
+			test = @flat[num] * @flat[num+19] * @flat[num+38] * @flat[num+57]
+			if @largest < test
+				@largest = test 
+				@array = [@flat[num] , @flat[num+19] , @flat[num+38] , @flat[num+57]]
+			end
+		end
+	end
+end
+
+(0...399).each do |e|
+	horiz(e)
+	vert(e)
+	diaga(e)
+	diagb(e)
+end
+
+puts @array
+puts @largest
