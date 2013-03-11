@@ -12,28 +12,26 @@
 # We can see that 28 is the first triangle number to have over five divisors.
 # What is the value of the first triangle number to have over five hundred divisors?
 
-
-#-------------------------#
-# Takes 
-# I inspected the first 400, and saw that multiples of 12
-# tended to be the longest, so I replaced my triangle method 
-# with a simple array of multiples of twelve
-#-------------------------#
-
 require './reusable'
+
+
 
 def nthTriangle(n)
  n * (n + 1) / 2
 end
 
 def answer(n)
+	start = Time.now 
 	i = 1
 	while true
 		triangle = nthTriangle(i)
 		# Assuming all numbers with many factors are even, to save time.
 		if triangle % 2 == 0
 			factors = factors(triangle).length
-			return "#{triangle} is triangle number #{i}, with #{factors} factors." if factors > n
+			if factors > n
+				finish = Time.now
+				return "#{triangle} is triangle number #{i}, with #{factors} factors -- took #{finish - start} seconds."
+			end
 		end
 		i += 1
 	end

@@ -1,8 +1,8 @@
 def primesUpTo(n)
   nums = [0, 0] + (2..n).to_a
-  (2..sqrt(n).to_i+1).each do |i|
+  (2..(sqrt(n).to_i + 1)).each do |i|
     if nums[i].nonzero?
-      (i**2..n).step(i) {|m| nums[m] = 0}
+      ((i ** 2)..n).step(i) {|m| nums[m] = 0}
     end
   end
   nums.find_all {|m| m.nonzero?}
@@ -53,8 +53,9 @@ end
 def factors(n)
 	array = []
 	1.upto(sqrt(n)).each do |f|
-		if n % f == 0 
-			array << f << n/f
+		if n % f == 0
+			array << f 
+			array << n/f if f != n / f
 		end
 	end
 	array
