@@ -14,12 +14,11 @@
 
 require './reusable'
 
-
-
 def nthTriangle(n)
  n * (n + 1) / 2
 end
 
+# Executes in 4.32 seconds
 def answer(n)
 	start = Time.now 
 	i = 1
