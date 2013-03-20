@@ -60,3 +60,23 @@ def factors(n)
 	end
 	array
 end
+
+# Returns an unsorted list of factors NOT including
+# the number itself, but still including 1
+def proper_factors(num)
+	factors(num).reject{|n| n == num}
+end
+
+def factorial(n)
+	product = 1
+	while n > 1
+		product *= n
+		n -= 1
+	end
+	product
+end
+
+# Ex: 345 => 12
+def sum_digits(n)
+	n.to_s.split("").map{ |d| d.to_i }.inject(0) { |d, sum| sum + d }
+end
